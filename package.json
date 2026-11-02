@@ -32,7 +32,7 @@
   "devDependencies": {
     "@types/mailparser": "^3.4.6",
     "@types/node": "^22.13.10",
-    "concurrently": "^9.1.2",
+    "concurrently": "^10.0.6",
     "prettier": "3.9.10",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
