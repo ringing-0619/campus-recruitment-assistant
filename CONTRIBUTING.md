@@ -1,6 +1,6 @@
 # 开发与贡献
 
-先阅读 [README](README.md)、[架构](docs/architecture.md) 和 [开发验证](docs/development.md)。项目当前保留所有权利；提交贡献前请与仓库维护者确认接受条件。
+先阅读 [中文 README](README.zh-CN.md)、[架构](docs/architecture.md) 和 [开发验证](docs/development.md)。项目当前保留所有权利；提交贡献前请与仓库维护者确认接受条件。
 
 ## 开发流程
 

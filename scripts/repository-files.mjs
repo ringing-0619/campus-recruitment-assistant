@@ -11,7 +11,7 @@ export const rootFiles = new Set([
   '.env.example',
   '.env.development.example',
   'README.md',
-  'README.en.md',
+  'README.zh-CN.md',
   'CHANGELOG.md',
   'CONTRIBUTING.md',
   'SECURITY.md',

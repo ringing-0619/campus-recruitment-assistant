@@ -1,37 +1,39 @@
-# 校招进度助手
+# Campus Recruitment Assistant
 
-简体中文 | [English](README.en.md)
+English | [简体中文](README.zh-CN.md)
 
-本地优先的求职进度管理工具。将投递记录、126 邮箱通知、招聘网站进度和待办集中到同一个看板，国内秋招与美国求职分别管理。
+A local-first job application tracker that brings application records, 126 Mail notifications, recruitment-site updates, and action items into one dashboard. Manage China's autumn campus recruiting and U.S. job searches in separate workspaces.
 
-**应用 3.1.0 · 浏览器扩展 3.6.4 · Node.js 22.13+（22.x）或 24.x · macOS 完整支持**
+**App 3.1.0 · Browser extension 3.6.4 · Node.js 22.13+ (22.x) or 24.x · Full functionality on macOS**
 
-## 功能
+The interface and detailed guides are currently primarily in Chinese. This README explains installation, features, and limitations in English.
 
-- **投递看板**：公司、岗位、阶段、真实投递日期、渠道、简历版本与备注；支持搜索、归档和导入导出。
-- **邮件自动同步**：只读连接 126 IMAP，识别投递、测评、笔试、真人／AI 面试、Offer 与拒信；高置信度且关联唯一时自动更新。
-- **浏览器侧栏**：Chrome／Edge 按网站授权，预览、编辑并确认岗位；记录后可监控已授权的进度页面。
-- **目标与分析**：国内／美国独立日目标和周目标、趋势图、漏斗、反馈覆盖率及阶段耗时。
-- **行动与日历**：测评和面试待办、改期、完成、取消、冲突提示、`.ics` 导出和 macOS 通知。
-- **可追溯更新**：待确认显示原因，自动写入带审计与撤销；重复同步不重复创建同一事件。
+## Features
 
-新安装从空库开始。运行数据保存在本机，源码不附带个人投递记录、邮箱配置或授权码。
+- **Application dashboard:** Track companies, roles, stages, actual application dates, channels, résumé versions, and notes. Search, archive, import, and export records.
+- **Automatic email sync:** Connect to 126 Mail over read-only IMAP. Identify application receipts, assessments, written tests, human or AI interviews, offers, and rejections. Apply updates automatically when confidence is high and the application match is unambiguous.
+- **Browser sidebar:** Grant access to individual sites in Chrome or Edge, preview and edit extracted job details, and confirm before recording them. Monitor authorized application-status pages after a record has been added.
+- **Goals and analytics:** Maintain separate daily and weekly goals for China and the U.S., with trends, conversion funnels, feedback coverage, and time spent at each stage.
+- **Actions and calendar:** Manage assessment and interview tasks, reschedule, complete, or cancel them, detect scheduling conflicts, export `.ics` files, and receive macOS notifications.
+- **Traceable updates:** Review uncertain matches with explanations. Automatic changes have an audit trail and can be undone; repeated syncs do not create duplicate events.
 
-## 环境要求
+A fresh installation starts with an empty database. Runtime data stays on your machine; the source does not include personal application records, mailbox settings, or authorization codes.
 
-| 项目       | 要求                                                                   |
-| ---------- | ---------------------------------------------------------------------- |
-| Node.js    | 22.13.0 及以上的 22.x，或 24.x；推荐使用 `.nvmrc` 的 22.x              |
-| npm        | 随受支持的 Node.js 安装；使用 `npm ci` 按锁文件安装                    |
-| 操作系统   | macOS 支持完整功能；其他系统的核心网页／API 不包含钥匙串及桌面通知实现 |
-| 浏览器扩展 | Chrome／Edge 116 及以上                                                |
-| 邮箱       | 已开启 IMAP 的 `@126.com` 邮箱及客户端授权码                           |
+## Requirements
 
-使用 Node.js 内置 SQLite，无需单独安装数据库。Node.js 22 某些版本会显示 SQLite 实验性提示。
+| Component         | Requirement                                                                                                                                                |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Node.js           | 22.x starting at 22.13.0, or 24.x. The 22.x version specified in `.nvmrc` is recommended.                                                                  |
+| npm               | Included with a supported Node.js installation. Use `npm ci` to install from the lockfile.                                                                 |
+| Operating system  | macOS provides full functionality. Core web/API functionality on other platforms does not include the macOS Keychain or desktop notification integrations. |
+| Browser extension | Chrome or Edge 116 or later.                                                                                                                               |
+| Mailbox           | An `@126.com` account with IMAP enabled and a client authorization code.                                                                                   |
 
-## 快速开始
+The app uses Node.js's built-in SQLite support, so no separate database installation is required. Some Node.js 22 releases display an experimental SQLite warning.
 
-下载或克隆源码后，在项目根目录执行：
+## Quick start
+
+Download or clone the source, then run the following commands from the project root:
 
 ```bash
 npm ci
@@ -39,93 +41,95 @@ npm run build
 npm start
 ```
 
-浏览器访问 [本地助手](http://127.0.0.1:43110)。关闭终端里的进程会停止手动启动的服务。
+Open the [local dashboard](http://127.0.0.1:43110). Stopping the process in the terminal stops a manually started server.
 
-macOS 也可双击 `启动校招助手.command`。启动器会复用已经运行的助手；没有服务时，安装缺失的依赖、构建并等待服务就绪后打开浏览器。
+On macOS, you can also double-click `启动校招助手.command`. The launcher reuses an existing assistant service. If no service is running, it installs missing dependencies, builds the app, waits for the service to be ready, and opens your browser.
 
-登录后自动启动：
+To start automatically when you log in to macOS:
 
 ```bash
 npm run install:agent
 ```
 
-停止自动启动：`npm run uninstall:agent`。这会保留数据库与钥匙串凭据。
+Run `npm run uninstall:agent` to remove automatic startup. Your database and Keychain credentials are retained.
 
-### 连接邮箱
+### Connect your mailbox
 
-1. 在 126 邮箱设置中开启 IMAP，生成客户端授权码。
-2. 打开助手的“连接设置”，填写邮箱与 16 位授权码并验证。
-3. 首次同步读取最近 90 天，之后每 10 分钟增量同步；也可点击“立即同步”。
+1. Enable IMAP in your 126 Mail settings and generate a client authorization code.
+2. Open **Connection Settings (连接设置)** in the assistant, enter your email address and 16-character authorization code, and verify the connection.
+3. The first sync reads the most recent 90 days. Subsequent incremental syncs run every 10 minutes; you can also select **Sync Now (立即同步)**.
 
-授权码保存在 macOS 钥匙串。同步不标记已读、不移动、不删除、不回复邮件；超过 2 MB 的候选邮件会跳过。
+The authorization code is stored in macOS Keychain. Sync does not mark messages as read, move or delete messages, or send replies. Candidate messages larger than 2 MB are skipped.
 
-### 安装扩展
+### Install the browser extension
 
-1. 打开 `chrome://extensions` 或 `edge://extensions`，开启开发者模式。
-2. 选择“加载已解压的扩展程序”，选择项目中的 `extension/`。
-3. 从助手“连接设置”复制配对令牌，粘贴到扩展选项中。
-4. 在招聘网站打开扩展侧栏，选择求职模块，授权并预览岗位，核对后点击记录。
+1. Open `chrome://extensions` or `edge://extensions` and enable Developer mode.
+2. Select **Load unpacked** and choose the project's `extension/` directory.
+3. Copy the pairing token from the assistant's **Connection Settings (连接设置)** and paste it into the extension's options.
+4. Open the extension sidebar on a recruitment website, choose the appropriate job-search workspace, grant site access, preview the job details, and confirm before recording.
 
-只对需要的网站授权。扩展更新后，在扩展管理页重新加载并刷新招聘页。浏览器关闭时，网站监控暂停。
+Grant access only to the sites you need. After updating the extension, reload it on the extensions page and refresh the recruitment page. Website monitoring pauses while the browser is closed.
 
-## 自动识别规则
+## Email recognition and matching
 
-邮件按“目的筛选 → 当前阶段 → 公司和岗位关联 → 写入”处理。
+Emails are processed in four steps: **intent filtering → current stage detection → company and role matching → update**.
 
-- 广告、课程、宣讲、职位推荐和账户验证等内容直接过滤。
-- 解析与关联达到 90% 且唯一时自动写入；冲突或身份不足时进入“待确认”。
-- 优先使用公司、申请编号、已关联会话和完整岗位匹配；保留城市、业务与岗位方向。
-- 公司唯一的在途申请可关联未注明岗位的测评；同公司多个岗位需有可靠线索。
-- 测评、笔试和面试通知更新已有投递。只有公司和岗位完整且无歧义的投递回执自动新建。
-- 支持“简历已入库”回执、提醒标签、括号岗位和明确的小时／天数有效期；推荐区、作答时长和落款日期不作为岗位或安排。
-- 旧通知不倒退较新阶段，不重开已完成任务；忽略或撤销的邮件不会再次自动写入。
-- 规则升级后重新检查最近 90 天，历史邮件保持所属模块。
+- Advertisements, courses, recruiting presentations, job recommendations, and account-verification messages are filtered out.
+- Automatic updates require parsing and matching confidence scores of at least 90% and an unambiguous match. Conflicts or insufficient identifying information go to **Pending Review (待确认)**. These are rule-based confidence thresholds, not a measured accuracy claim.
+- Matching prioritizes the company, application identifier, previously linked conversation, and full role information, while retaining city, business unit, and role specialization.
+- An assessment that does not name a role can be linked to a company's sole active application. Multiple applications at the same company require reliable distinguishing evidence.
+- Assessment, written-test, and interview notices update existing applications. Only an unambiguous application receipt with a complete company and role can automatically create a new application.
+- Recognition handles résumé-database acknowledgments, reminder labels, roles in parentheses, and explicit validity periods in hours or days. Recommendation sections, test durations, and signature dates are not treated as job details or scheduled events.
+- Older notices do not move a newer application stage backward or reopen completed tasks. Ignored or undone emails are not automatically applied again.
+- After a rules upgrade, the most recent 90 days are rechecked. Historical emails retain their assigned workspace.
 
-更多示例见 [识别与匹配](docs/email-recognition.md)。
+See [Email Recognition and Matching](docs/email-recognition.md) for examples in Chinese.
 
-## 开发与验证
+## Development and validation
 
 ```bash
 npm ci
-npm run dev          # 独立开发库，前端 http://127.0.0.1:5173
-npm run format       # 统一格式
-npm run validate     # 格式、类型、测试、仓库检查、构建与空库冒烟
-npm audit            # 依赖审计，需要网络
+npm run dev          # Separate development database; web UI at http://127.0.0.1:5173
+npm run format       # Format the repository
+npm run validate     # Formatting, types, tests, repository checks, build, and empty-database smoke test
+npm audit            # Dependency audit; requires internet access
 npm run package:source
 ```
 
-开发服务默认端口 `43111`，数据库 `data/runtime/development.sqlite`。生产服务默认为 `43110`，数据库 `data/runtime/campus-assistant.sqlite`。开发配置可参考 `.env.development.example`；生产配置可参考 `.env.example`。
+The development server defaults to port `43111` and `data/runtime/development.sqlite`. The production server defaults to port `43110` and `data/runtime/campus-assistant.sqlite`. See `.env.development.example` for development settings and `.env.example` for production settings.
 
-GitHub Actions 配置在 Ubuntu／macOS、Node.js 22／24 上运行完整验证；它不会连接真实邮箱或读取开发者钥匙串。
+GitHub Actions is configured to run full validation on Ubuntu and macOS with Node.js 22 and 24. CI does not connect to a real mailbox or read the developer's Keychain.
 
-## 项目结构
+## Project structure
 
 ```text
-.github/             CI、依赖更新、Issue 和 PR 模板
-src/server/          本地 API、SQLite、邮件同步、识别、匹配和审计
-src/shared/          类型、时间与统计规则
-src/web/             网页界面与样式
-extension/           Manifest V3 浏览器扩展
-tests/               自动化测试及脱敏样本
-scripts/             启动、校验、冒烟、打包与自启动脚本
-docs/                使用、架构、配置、开发和 GitHub 操作文档
-public/              可发行的静态资源
-data/                本机运行数据，Git 忽略实际内容
+.github/             CI, dependency updates, and issue/PR templates
+src/server/          Local API, SQLite, email sync, recognition, matching, and auditing
+src/shared/          Types, time handling, and analytics rules
+src/web/             Web interface and styles
+extension/           Manifest V3 browser extension
+tests/               Automated tests and sanitized fixtures
+scripts/             Startup, validation, smoke testing, packaging, and login-agent scripts
+docs/                User, architecture, configuration, development, and GitHub guides
+public/              Distributable static assets
+data/                Local runtime data; actual contents are ignored by Git
 ```
 
-## 文档
+## Additional documentation
 
-- [使用指南](docs/user-guide.md)：看板、目标、日历、提醒与数据恢复。
-- [配置说明](docs/configuration.md)：端口、数据库、可选迁移和系统支持。
-- [架构说明](docs/architecture.md)：模块边界、同步和数据流。
-- [API 概览](docs/api.md)：主要接口、模块参数与扩展认证。
-- [开发与验证](docs/development.md)：测试范围、CI 和依赖维护。
-- [上传与后续更新](docs/github.md)：首次推送、更新与版本发布。
-- [本轮整理结果](docs/repository-readiness.md)：最终结构与已执行的验证。
-- [贡献指南](CONTRIBUTING.md)、[安全说明](SECURITY.md)、[更新记录](CHANGELOG.md)。
+The following guides are currently in Chinese:
 
-## 数据与许可
+- [User Guide](docs/user-guide.md): Dashboard, goals, calendar, reminders, and data recovery.
+- [Configuration](docs/configuration.md): Ports, databases, optional migrations, and platform support.
+- [Architecture](docs/architecture.md): Module boundaries, synchronization, and data flow.
+- [API Overview](docs/api.md): Main endpoints, workspace parameters, and extension authentication.
+- [Development and Validation](docs/development.md): Test coverage, CI, and dependency maintenance.
+- [GitHub Uploads and Updates](docs/github.md): Initial push, subsequent updates, and releases.
+- [Repository Readiness](docs/repository-readiness.md): Repository structure and completed verification.
+- [Contributing](CONTRIBUTING.md), [Security](SECURITY.md), and [Changelog](CHANGELOG.md).
 
-实际数据库、备份、邮箱摘要、截图、导出、临时脚本及现场报告均留在本地。使用 `npm run package:source` 可以生成不含这些文件的源码包，并附文件清单和 SHA-256 校验和。
+## Data and licensing
 
-项目自身目前保留所有权利，见 [LICENSE](LICENSE)；第三方与样本说明见 [NOTICE](NOTICE.md)。上传到 GitHub 后，可以由权利人另行决定是否采用开源许可证。
+Actual databases, backups, email summaries, screenshots, exports, temporary scripts, and local investigation reports stay on your machine. `npm run package:source` creates a source archive that excludes those files and includes a file manifest and SHA-256 checksum.
+
+All rights are currently reserved for the project's own code; see [LICENSE](LICENSE). See [NOTICE](NOTICE.md) for third-party and fixture notices. The rights holder may choose an open-source license separately; publication on GitHub does not change the current license.
