@@ -1,0 +1,11 @@
+node_modules/
+dist/
+dist-server/
+coverage/
+output/
+tmp/
+data/
+backups/
+docs/local-history/
+index.html
+package-lock.json

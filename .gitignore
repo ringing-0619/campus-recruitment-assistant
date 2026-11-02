@@ -1,0 +1,44 @@
+# Dependencies, builds and generated artifacts
+node_modules/
+/dist/
+/dist-server/
+/coverage/
+/output/
+/tmp/
+*.tsbuildinfo
+
+# Local applications, exports, backups and historical files
+/data/*
+!/data/.gitkeep
+/backups/
+/docs/local-history/
+/index.html
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.log
+*.eml
+*.mbox
+*.ics
+*.zip
+*.tar.gz
+
+# Credentials and developer configuration
+.env
+.env.*
+!.env.example
+!.env.development.example
+*.pem
+*.key
+*.p12
+*.pfx
+.npmrc.local
+
+# Editor and operating system state
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json

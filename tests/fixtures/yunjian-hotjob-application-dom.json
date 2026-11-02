@@ -1,0 +1,418 @@
+{
+  "title": "云尖信息招聘",
+  "hostname": "wecruit.hotjob.cn",
+  "pathname": "/SU6298e4f10dcad45229985fd0/pb/account.html",
+  "href": "https://wecruit.hotjob.cn/SU6298e4f10dcad45229985fd0/pb/account.html#/myDeliver",
+  "roots": [
+    {
+      "tagName": "DIV",
+      "id": "000000000000000000000002",
+      "className": "record-item list",
+      "textContent": "投递成功2027届-海外市场拓展校园招聘2027届校招待处理简历志愿：第2志愿简历名称：[测试简历]投递时间：2026-11-01 05:23导出简历",
+      "attributes": {},
+      "children": [
+        {
+          "tagName": "DIV",
+          "id": "",
+          "className": "record-item-detail deliver",
+          "textContent": "投递成功2027届-海外市场拓展校园招聘2027届校招待处理简历志愿：第2志愿简历名称：[测试简历]投递时间：2026-11-01 05:23",
+          "attributes": {},
+          "children": [
+            {
+              "tagName": "DIV",
+              "id": "",
+              "className": "statusCon",
+              "textContent": "投递成功",
+              "attributes": {},
+              "children": [
+                {
+                  "tagName": "DIV",
+                  "id": "",
+                  "className": "statusText",
+                  "textContent": "投递成功",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "tagName": "P",
+                      "id": "",
+                      "className": "",
+                      "textContent": "投递成功",
+                      "attributes": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tagName": "DIV",
+              "id": "",
+              "className": "record-item-hd",
+              "textContent": "2027届-海外市场拓展校园招聘2027届校招待处理简历志愿：第2志愿简历名称：[测试简历]投递时间：2026-11-01 05:23",
+              "attributes": {},
+              "children": [
+                {
+                  "tagName": "DIV",
+                  "id": "",
+                  "className": "title",
+                  "textContent": "2027届-海外市场拓展校园招聘2027届校招待处理简历",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "tagName": "SPAN",
+                      "id": "",
+                      "className": "name label",
+                      "textContent": "2027届-海外市场拓展校园招聘2027届校招待处理简历",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "tagName": "SPAN",
+                          "id": "",
+                          "className": "title-name",
+                          "textContent": "2027届-海外市场拓展",
+                          "attributes": {},
+                          "children": []
+                        },
+                        {
+                          "tagName": "DIV",
+                          "id": "",
+                          "className": "record-label",
+                          "textContent": "校园招聘2027届校招",
+                          "attributes": {},
+                          "children": [
+                            {
+                              "tagName": "SPAN",
+                              "id": "",
+                              "className": "pos-tag-name iconedu-type",
+                              "textContent": "校园招聘",
+                              "attributes": {},
+                              "children": []
+                            },
+                            {
+                              "tagName": "SPAN",
+                              "id": "",
+                              "className": "pos-tag-name project-type",
+                              "textContent": "2027届校招",
+                              "attributes": {},
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "tagName": "DIV",
+                          "id": "",
+                          "className": "record-label",
+                          "textContent": "待处理简历",
+                          "attributes": {},
+                          "children": [
+                            {
+                              "tagName": "DIV",
+                              "id": "",
+                              "className": "progress-btn",
+                              "textContent": "待处理简历",
+                              "attributes": {},
+                              "children": [
+                                {
+                                  "tagName": "DIV",
+                                  "id": "",
+                                  "className": "icon",
+                                  "textContent": "",
+                                  "attributes": {},
+                                  "children": [
+                                    {
+                                      "tagName": "IMG",
+                                      "id": "",
+                                      "className": "",
+                                      "textContent": "",
+                                      "attributes": {},
+                                      "children": []
+                                    }
+                                  ]
+                                },
+                                {
+                                  "tagName": "DIV",
+                                  "id": "",
+                                  "className": "name",
+                                  "textContent": "待处理简历",
+                                  "attributes": {},
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tagName": "SPAN",
+                  "id": "",
+                  "className": "",
+                  "textContent": "志愿：第2志愿",
+                  "attributes": {},
+                  "children": []
+                },
+                {
+                  "tagName": "SPAN",
+                  "id": "",
+                  "className": "",
+                  "textContent": "简历名称：[测试简历]",
+                  "attributes": {},
+                  "children": []
+                },
+                {
+                  "tagName": "DIV",
+                  "id": "",
+                  "className": "record-item-hd",
+                  "textContent": "投递时间：2026-11-01 05:23",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "tagName": "SPAN",
+                      "id": "",
+                      "className": "",
+                      "textContent": "投递时间：2026-11-01 05:23",
+                      "attributes": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tagName": "DIV",
+          "id": "",
+          "className": "record-item-action deliver",
+          "textContent": "导出简历",
+          "attributes": {},
+          "children": [
+            {
+              "tagName": "SPAN",
+              "id": "",
+              "className": "btn",
+              "textContent": "导出简历",
+              "attributes": { "title": "导出简历" },
+              "children": []
+            }
+          ]
+        },
+        {
+          "tagName": "DIV",
+          "id": "",
+          "className": "split-line",
+          "textContent": "",
+          "attributes": {},
+          "children": []
+        }
+      ]
+    },
+    {
+      "tagName": "DIV",
+      "id": "000000000000000000000001",
+      "className": "record-item list",
+      "textContent": "投递成功2027届-海外市场拓展校园招聘2027届校招待处理简历志愿：第1志愿简历名称：[测试简历]投递时间：2026-11-01 05:22导出简历",
+      "attributes": {},
+      "children": [
+        {
+          "tagName": "DIV",
+          "id": "",
+          "className": "record-item-detail deliver",
+          "textContent": "投递成功2027届-海外市场拓展校园招聘2027届校招待处理简历志愿：第1志愿简历名称：[测试简历]投递时间：2026-11-01 05:22",
+          "attributes": {},
+          "children": [
+            {
+              "tagName": "DIV",
+              "id": "",
+              "className": "statusCon",
+              "textContent": "投递成功",
+              "attributes": {},
+              "children": [
+                {
+                  "tagName": "DIV",
+                  "id": "",
+                  "className": "statusText",
+                  "textContent": "投递成功",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "tagName": "P",
+                      "id": "",
+                      "className": "",
+                      "textContent": "投递成功",
+                      "attributes": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tagName": "DIV",
+              "id": "",
+              "className": "record-item-hd",
+              "textContent": "2027届-海外市场拓展校园招聘2027届校招待处理简历志愿：第1志愿简历名称：[测试简历]投递时间：2026-11-01 05:22",
+              "attributes": {},
+              "children": [
+                {
+                  "tagName": "DIV",
+                  "id": "",
+                  "className": "title",
+                  "textContent": "2027届-海外市场拓展校园招聘2027届校招待处理简历",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "tagName": "SPAN",
+                      "id": "",
+                      "className": "name label",
+                      "textContent": "2027届-海外市场拓展校园招聘2027届校招待处理简历",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "tagName": "SPAN",
+                          "id": "",
+                          "className": "title-name",
+                          "textContent": "2027届-海外市场拓展",
+                          "attributes": {},
+                          "children": []
+                        },
+                        {
+                          "tagName": "DIV",
+                          "id": "",
+                          "className": "record-label",
+                          "textContent": "校园招聘2027届校招",
+                          "attributes": {},
+                          "children": [
+                            {
+                              "tagName": "SPAN",
+                              "id": "",
+                              "className": "pos-tag-name iconedu-type",
+                              "textContent": "校园招聘",
+                              "attributes": {},
+                              "children": []
+                            },
+                            {
+                              "tagName": "SPAN",
+                              "id": "",
+                              "className": "pos-tag-name project-type",
+                              "textContent": "2027届校招",
+                              "attributes": {},
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "tagName": "DIV",
+                          "id": "",
+                          "className": "record-label",
+                          "textContent": "待处理简历",
+                          "attributes": {},
+                          "children": [
+                            {
+                              "tagName": "DIV",
+                              "id": "",
+                              "className": "progress-btn",
+                              "textContent": "待处理简历",
+                              "attributes": {},
+                              "children": [
+                                {
+                                  "tagName": "DIV",
+                                  "id": "",
+                                  "className": "icon",
+                                  "textContent": "",
+                                  "attributes": {},
+                                  "children": [
+                                    {
+                                      "tagName": "IMG",
+                                      "id": "",
+                                      "className": "",
+                                      "textContent": "",
+                                      "attributes": {},
+                                      "children": []
+                                    }
+                                  ]
+                                },
+                                {
+                                  "tagName": "DIV",
+                                  "id": "",
+                                  "className": "name",
+                                  "textContent": "待处理简历",
+                                  "attributes": {},
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tagName": "SPAN",
+                  "id": "",
+                  "className": "",
+                  "textContent": "志愿：第1志愿",
+                  "attributes": {},
+                  "children": []
+                },
+                {
+                  "tagName": "SPAN",
+                  "id": "",
+                  "className": "",
+                  "textContent": "简历名称：[测试简历]",
+                  "attributes": {},
+                  "children": []
+                },
+                {
+                  "tagName": "DIV",
+                  "id": "",
+                  "className": "record-item-hd",
+                  "textContent": "投递时间：2026-11-01 05:22",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "tagName": "SPAN",
+                      "id": "",
+                      "className": "",
+                      "textContent": "投递时间：2026-11-01 05:22",
+                      "attributes": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tagName": "DIV",
+          "id": "",
+          "className": "record-item-action deliver",
+          "textContent": "导出简历",
+          "attributes": {},
+          "children": [
+            {
+              "tagName": "SPAN",
+              "id": "",
+              "className": "btn",
+              "textContent": "导出简历",
+              "attributes": { "title": "导出简历" },
+              "children": []
+            }
+          ]
+        },
+        {
+          "tagName": "DIV",
+          "id": "",
+          "className": "split-line",
+          "textContent": "",
+          "attributes": {},
+          "children": []
+        }
+      ]
+    }
+  ]
+}

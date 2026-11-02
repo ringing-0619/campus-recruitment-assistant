@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "校招进度助手",
+  "version": "3.6.4",
+  "minimum_chrome_version": "116",
+  "description": "选择国内秋招或美国求职，识别当前岗位与申请进度并同步到本机助手。",
+  "permissions": ["storage", "scripting", "activeTab", "alarms", "sidePanel"],
+  "host_permissions": ["http://127.0.0.1:43110/*"],
+  "optional_host_permissions": ["https://*/*", "http://*/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_title": "打开校招进度助手侧栏" },
+  "side_panel": { "default_path": "popup.html" },
+  "options_page": "options.html"
+}

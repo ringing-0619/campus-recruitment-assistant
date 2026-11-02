@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>校招进度助手</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        width: 100%;
+        min-width: 280px;
+        max-width: 620px;
+        margin: 0 auto;
+        padding: 16px;
+        font-family: -apple-system, 'PingFang SC', sans-serif;
+        color: #1b2335;
+        background: #fff;
+      }
+      h2 {
+        font-size: 16px;
+        margin: 0 0 5px;
+      }
+      .version {
+        float: right;
+        font-size: 11px;
+        font-weight: 600;
+        color: #9299a8;
+      }
+      p {
+        font-size: 12px;
+        color: #737c8e;
+        line-height: 1.5;
+      }
+      .status {
+        background: #f5f6fa;
+        border-radius: 9px;
+        padding: 10px;
+        font-size: 12px;
+        margin: 12px 0;
+      }
+      .dot {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #bbb;
+        margin-right: 5px;
+      }
+      .ok .dot {
+        background: #31a36d;
+      }
+      .feedback {
+        display: none;
+        border-radius: 9px;
+        padding: 10px 12px;
+        margin: 10px 0;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.45;
+      }
+      .feedback.show {
+        display: block;
+      }
+      .feedback.success {
+        color: #17764d;
+        background: #eaf8f1;
+        border: 1px solid #b9e5cf;
+      }
+      .feedback.pending {
+        color: #6546a5;
+        background: #f3effc;
+        border: 1px solid #d8cdf0;
+      }
+      .feedback.warning {
+        color: #8b5a00;
+        background: #fff7e6;
+        border: 1px solid #f0d59a;
+      }
+      .feedback.error {
+        color: #a3362b;
+        background: #fff0ee;
+        border: 1px solid #f1c4bf;
+      }
+      .fields {
+        display: none;
+        margin: 10px 0;
+      }
+      .fields.show {
+        display: block;
+      }
+      .fields-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .fields-title {
+        font-size: 12px;
+        font-weight: 800;
+        color: #374054;
+      }
+      .fields-count {
+        font-size: 11px;
+        color: #6056df;
+        background: #f0efff;
+        border-radius: 99px;
+        padding: 3px 8px;
+      }
+      .job-list {
+        display: grid;
+        gap: 9px;
+        padding-right: 2px;
+      }
+      .job-card {
+        border: 1px solid #e1e4eb;
+        border-radius: 10px;
+        padding: 10px;
+        background: #fbfbfd;
+      }
+      .job-card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+      .job-card-head .job-card-title {
+        margin: 0;
+      }
+      .job-card-head .remove-job {
+        width: auto;
+        padding: 4px 8px;
+        color: #a3362b;
+        background: #fff0ee;
+        font-size: 11px;
+      }
+      .field-actions {
+        display: flex;
+        gap: 8px;
+      }
+      .field-actions button {
+        font-size: 12px;
+      }
+      .empty-list {
+        font-size: 12px;
+        color: #737c8e;
+        line-height: 1.6;
+        padding: 12px 0;
+      }
+      .filter-note {
+        font-size: 11px;
+        line-height: 1.6;
+        color: #737c8e;
+        overflow-wrap: anywhere;
+      }
+      .job-card-title {
+        font-size: 11px;
+        font-weight: 800;
+        color: #6056df;
+        margin-bottom: 8px;
+      }
+      .job-card label {
+        display: grid;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 800;
+        color: #596275;
+      }
+      .job-card label + label {
+        margin-top: 7px;
+      }
+      .job-card input {
+        width: 100%;
+        border: 1px solid #dfe2e9;
+        border-radius: 8px;
+        padding: 8px;
+        color: #1b2335;
+        background: #fff;
+      }
+      .job-card input:focus {
+        outline: 2px solid #d8d3ff;
+        border-color: #746bea;
+      }
+      button {
+        width: 100%;
+        border: 0;
+        border-radius: 9px;
+        background: #6056df;
+        color: #fff;
+        padding: 10px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.58;
+        cursor: default;
+      }
+      button.secondary {
+        margin-top: 8px;
+        background: #f0efff;
+        color: #6056df;
+      }
+      .note {
+        font-size: 11px;
+        color: #8a92a1;
+        margin-top: 10px;
+      }
+      .markets {
+        border: 0;
+        padding: 0;
+        margin: 14px 0 10px;
+      }
+      .markets legend {
+        font-size: 12px;
+        font-weight: 800;
+        margin-bottom: 8px;
+      }
+      .market-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .market-option {
+        display: flex;
+        gap: 7px;
+        align-items: center;
+        border: 1px solid #e1e4eb;
+        border-radius: 10px;
+        padding: 11px 9px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 800;
+      }
+      .market-option:has(input:checked) {
+        background: #f1efff;
+        border-color: #8f85e8;
+        color: #5147c6;
+      }
+      .market-option input {
+        accent-color: #6056df;
+        margin: 0;
+      }
+      .destination {
+        font-size: 11px;
+        color: #737c8e;
+        margin: 8px 0 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>校招进度助手 <span class="version" id="version"></span></h2>
+    <fieldset class="markets">
+      <legend>记录到哪个求职模块？</legend>
+      <div class="market-options">
+        <label class="market-option"
+          ><input type="radio" name="market" value="cn" checked />国内秋招</label
+        ><label class="market-option"
+          ><input type="radio" name="market" value="us" />美国求职</label
+        >
+      </div>
+      <p class="destination" id="destination">当前记录到：国内秋招</p>
+    </fieldset>
+    <p id="site">正在读取当前网站…</p>
+    <div class="status" id="status"><span class="dot"></span><span>检查授权状态</span></div>
+    <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    <section class="fields" id="fields" aria-label="识别到的岗位">
+      <div class="fields-head">
+        <span class="fields-title">识别结果</span
+        ><span class="fields-count" id="detected-count">0 个岗位</span>
+      </div>
+      <div class="job-list" id="job-list"></div>
+      <div id="empty-list" class="empty-list" hidden>暂无可记录岗位。可以手动添加秋招岗位。</div>
+      <div class="field-actions">
+        <button class="secondary" id="add-job" type="button">＋ 添加岗位</button
+        ><button class="secondary" id="refresh" type="button">重新识别</button>
+      </div>
+      <p class="filter-note" id="filter-note"></p>
+    </section>
+    <button id="enable">为此招聘网站启用</button>
+    <button class="secondary" id="retry-page" type="button" hidden>重新连接当前网页</button>
+    <button class="secondary" id="open">打开助手</button>
+    <div class="note">
+      侧栏在网站授权后保持打开。先核对并修改、添加或移除条目，再点击记录；只提交当前列表。不会读取表单答案或密码。
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

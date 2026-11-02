@@ -1,0 +1,38 @@
+name: 问题反馈
+description: 报告可复现的功能或识别错误，请先脱敏。
+title: '[Bug] '
+body:
+  - type: markdown
+    attributes:
+      value: 请勿上传授权码、配对令牌、数据库、个人简历或未脱敏邮件。涉及凭据的问题请参照 SECURITY.md。
+  - type: input
+    id: version
+    attributes:
+      label: 应用与扩展版本
+      placeholder: 应用 3.1.0，扩展 3.6.4
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 运行环境
+      placeholder: macOS、Node.js 版本、Chrome 或 Edge 版本
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤和实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望行为
+    validations:
+      required: true
+  - type: textarea
+    id: sample
+    attributes:
+      label: 脱敏样本或日志
+      description: 邮件只保留触发问题的语句结构，移除姓名、真实申请编号、访问链接及联系方式。

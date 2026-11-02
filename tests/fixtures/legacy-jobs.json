@@ -1,0 +1,27 @@
+[
+  {
+    "id": "demo-cn-1",
+    "company": "示例科技",
+    "position": "数据分析师",
+    "status": "已投递",
+    "link": "https://careers.example.com/applications",
+    "notes": "虚构测试数据",
+    "stages": [{ "title": "投递成功", "date": "2026-09-01", "note": "脱敏迁移样本" }]
+  },
+  {
+    "id": "demo-cn-2",
+    "company": "示例制造",
+    "position": "运营管培生",
+    "status": "面试中",
+    "notes": "虚构测试数据",
+    "stages": [{ "title": "面试通知", "date": "2026-09-03", "note": "脱敏迁移样本" }]
+  },
+  {
+    "id": "demo-cn-3",
+    "company": "Example Labs",
+    "position": "Business Analyst",
+    "status": "待投递",
+    "notes": "Fictional fixture",
+    "stages": []
+  }
+]

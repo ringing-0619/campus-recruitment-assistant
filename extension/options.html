@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        font-family: -apple-system, 'PingFang SC', sans-serif;
+        max-width: 620px;
+        margin: 55px auto;
+        padding: 0 20px;
+        color: #1b2335;
+      }
+      h1 {
+        font-size: 25px;
+      }
+      section {
+        border: 1px solid #e2e5ec;
+        border-radius: 14px;
+        padding: 20px;
+      }
+      label {
+        font-size: 13px;
+        font-weight: 800;
+        display: grid;
+        gap: 7px;
+      }
+      input {
+        padding: 10px;
+        border: 1px solid #dfe2e9;
+        border-radius: 9px;
+      }
+      button {
+        margin-top: 12px;
+        background: #6056df;
+        color: white;
+        border: 0;
+        border-radius: 9px;
+        padding: 10px 15px;
+        font-weight: 800;
+      }
+      .status {
+        font-size: 12px;
+        color: #687285;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>校招进度助手扩展设置</h1>
+    <section>
+      <label
+        >配对令牌<input id="token" type="password" placeholder="从助手的连接设置中复制" /></label
+      ><button id="save">保存并测试连接</button>
+      <div class="status" id="status"></div>
+    </section>
+    <script src="options.js"></script>
+  </body>
+</html>

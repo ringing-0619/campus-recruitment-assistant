@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>校招进度助手</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div><div class="eyebrow">APPLICATION TRACKER · LOCAL</div><h1>校招进度助手</h1><p>国内秋招与美国求职，在这里分别记录。</p></div>
+      <div class="top-actions"><span class="service-pill" id="servicePill"><i></i> 本地服务连接中</span><button class="btn" type="button" data-export-pdf>⇩ 导出 PDF</button><button class="btn primary" id="addJob">＋ 新增投递</button></div>
+    </header>
+    <nav class="market-switcher" aria-label="求职模块">
+      <button type="button" class="market-card active" data-market="cn" aria-pressed="true"><span class="market-icon">CN</span><span class="market-copy"><strong>国内秋招</strong><small>校园招聘 · 投递与进度</small></span><span class="market-check" aria-hidden="true">✓</span></button>
+      <button type="button" class="market-card" data-market="us" aria-pressed="false"><span class="market-icon">US</span><span class="market-copy"><strong>美国求职</strong><small>美国机会 · 投递与进度</small></span><span class="market-check" aria-hidden="true">✓</span></button>
+    </nav>
+    <div class="workspace-heading"><div><h2 id="workspaceTitle">国内秋招进度记录</h2><p id="workspaceDescription">集中管理国内秋招的投递、测评与面试。</p></div><span class="workspace-tag" id="workspaceTag">国内秋招</span></div>
+    <nav class="tabs" aria-label="主导航">
+      <button class="tab active" data-page="dashboard">投递看板</button>
+      <button class="tab" data-page="goals">投递目标</button>
+      <button class="tab" data-page="analytics">漏斗与对比</button>
+      <button class="tab" data-page="actions">行动与日历 <span class="count" id="reminderBadge">0</span></button>
+      <button class="tab" data-page="review">待确认 <span class="count" id="pendingBadge">0</span></button>
+      <button class="tab" data-page="activity">自动更新记录</button>
+      <button class="tab" data-page="settings">连接设置</button>
+    </nav>
+
+    <main>
+      <section class="page active" id="page-dashboard">
+        <div class="metrics" id="metrics"></div><div id="productivitySummary" class="productivity-summary"></div>
+        <div class="toolbar">
+          <div class="search"><span>⌕</span><input id="search" type="search" placeholder="搜索公司、岗位或备注"></div>
+          <select id="statusFilter"><option>全部</option></select>
+          <select id="sortBy"><option value="updated">最近更新</option><option value="deadline">最近截止</option><option value="company">公司名称</option></select>
+          <button class="btn" id="refresh">刷新</button>
+        </div>
+        <div class="layout"><section><div class="section-head"><h2 id="listTitle">全部机会</h2><span id="resultCount"></span></div><div class="job-list" id="jobList"></div></section>
+          <aside><div class="panel"><div class="panel-head"><h3>即将到期</h3></div><div id="deadlines"></div></div><div class="panel"><div class="panel-head"><h3>同步概况</h3></div><div id="syncSummary"></div></div></aside></div>
+      </section>
+
+      <section class="page" id="page-goals"><div id="goalsRoot"></div></section>
+      <section class="page" id="page-analytics"><div id="analyticsRoot"></div></section>
+      <section class="page" id="page-actions"><div id="actionsRoot"></div></section>
+      <section class="page" id="page-review">
+        <div class="page-heading"><div><h2>待确认</h2><p>低置信度或无法唯一匹配的更新，确认后写入当前模块。</p></div></div>
+        <div class="review-list" id="candidateList"></div>
+      </section>
+
+      <section class="page" id="page-activity">
+        <div class="page-heading"><div><h2>自动更新记录</h2><p>网站、邮箱和手动操作都会留下本地审计记录。</p></div></div>
+        <div class="activity-list" id="auditList"></div>
+      </section>
+
+      <section class="page" id="page-settings">
+        <div class="page-heading"><div><h2>连接设置</h2><p>凭据保存在 macOS 钥匙串，数据库与导出文件中不保存授权码。</p></div></div>
+        <div class="settings-grid">
+          <article class="setting-card full"><div class="setting-icon">⇄</div><div class="setting-body"><h3>自动识别归属</h3><p>两个模块共用邮箱与扩展连接，使用同一套识别规则。插件中选择的模块优先于网站默认归属；已有记录不会移动。</p><form id="routingForm"><div class="form-grid"><label>新邮件归属<select id="emailMarket"><option value="cn">国内秋招</option><option value="us">美国求职</option></select></label><label>网站默认归属<select id="websiteMarket"><option value="cn">国内秋招</option><option value="us">美国求职</option></select></label></div><button class="btn primary" type="submit">保存归属设置</button></form><small>已记录进度页的定时检查继续更新原模块。切换看板不会改变识别归属。</small></div></article>
+          <article class="setting-card"><div class="setting-icon">✉</div><div class="setting-body"><h3>126 邮箱</h3><p id="mailState">尚未连接</p><form id="mailForm"><label>邮箱地址<input id="mailAddress" type="email" placeholder="name@126.com" required></label><label>16 位客户端授权码<input id="mailCode" type="password" autocomplete="new-password" placeholder="可直接粘贴，空格会自动去除" required><span id="mailCodeHint" class="field-hint">已识别 0 / 16 位（保留大小写）</span></label><div class="form-actions"><button class="btn primary" type="submit">连接并验证</button><button class="btn" type="button" id="syncMail">立即同步</button><button class="btn danger" type="button" id="disconnectMail">断开</button></div></form><small>首次连接回溯最近 90 天，之后每 10 分钟增量同步。不会标记已读、移动或删除邮件。</small></div></article>
+          <article class="setting-card"><div class="setting-icon">◈</div><div class="setting-body"><h3>浏览器扩展</h3><p id="extensionState">尚未配对</p><label>配对令牌<div class="token-row"><input id="pairToken" readonly><button class="btn" id="copyToken">复制</button></div></label><small>在扩展设置中粘贴令牌。每个招聘网站只需首次授权一次。</small></div></article>
+          <article class="setting-card full"><div class="setting-icon">↗</div><div class="setting-body"><h3>数据与备份</h3><p>PDF 用于查看和分享，JSON 用于完整备份与恢复；文件均在本机生成。</p><div class="form-actions"><button class="btn primary" type="button" data-export-pdf>导出 PDF 报告</button><button class="btn" id="exportData">导出 JSON</button><label class="btn file-button">导入 JSON<input id="importData" type="file" accept=".json,application/json" hidden></label></div></div></article>
+          <article class="setting-card full"><div class="setting-icon">◎</div><div class="setting-body"><h3>待适配网站</h3><p>扩展发现但通用解析器尚未识别的网站，会按出现频率排列。</p><div id="domainList" class="domain-list"></div></div></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <section id="pdfReport" class="pdf-report" aria-hidden="true"></section>
+
+  <dialog id="jobDialog"><form id="jobForm"><header><div><span class="dialog-kicker">APPLICATION</span><h2 id="jobDialogTitle">新增投递</h2></div><button type="button" class="icon-button" data-close>×</button></header><div class="dialog-content"><input id="jobId" type="hidden"><div class="form-grid"><label>公司名称<input id="company" required></label><label>岗位名称<input id="position" required></label><label>当前状态<select id="jobStatus"></select></label><label>进度页面 URL<input id="progressUrl" type="url" placeholder="https://..."></label></div><div id="applicationFields"></div><label>备注<textarea id="notes" rows="3"></textarea></label><div id="stageHistory"></div></div><footer><button class="btn" type="button" data-close>取消</button><button class="btn primary" type="submit">保存</button></footer></form></dialog>
+
+  <dialog id="reviewDialog"><form id="reviewForm"><header><div><span class="dialog-kicker">REVIEW</span><h2>确认自动识别结果</h2></div><button type="button" class="icon-button" data-review-close>×</button></header><div class="dialog-content"><input id="candidateId" type="hidden"><label>关联方式<select id="candidateJob"></select></label><div class="form-grid"><label>公司<input id="candidateCompany"></label><label>岗位<input id="candidatePosition"></label><label>进度类型<select id="candidateEventType"></select></label><label>事件名称<input id="candidateTitle"></label><label>截止时间<input id="candidateDue" type="datetime-local"></label></div><div class="evidence" id="candidateEvidence"></div></div><footer><button class="btn" type="button" data-review-close>取消</button><button class="btn primary" type="submit">确认写入</button></footer></form></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="/main.ts"></script>
+</body>
+</html>
