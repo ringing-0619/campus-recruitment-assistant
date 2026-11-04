@@ -17,9 +17,12 @@ export interface ServerOptions {
   mailOptions?: MailSyncOptions;
   startMail?: boolean;
   webRoot?: string;
+  demoMode?: boolean;
 }
 
 export async function createServer(options: ServerOptions = {}) {
+  if (options.demoMode && !options.store)
+    throw new Error('Demo mode requires an explicitly isolated store');
   const app = Fastify({
     logger: {
       level: process.env.NODE_ENV === 'test' ? 'silent' : 'info',
@@ -37,6 +40,14 @@ export async function createServer(options: ServerOptions = {}) {
         ((reason) => app.log.warn({ reason }, '126 邮箱后台同步失败，已安排重试')),
     });
 
+  if (options.demoMode) {
+    app.addHook('onRequest', async (request, reply) => {
+      const route = request.routeOptions.url || request.url.split('?')[0];
+      if (route.startsWith('/api/v1/email/') || route === '/api/v1/reminders/test-desktop')
+        return reply.code(403).send({ error: '模拟演示不连接真实邮箱或发送系统通知。' });
+    });
+  }
+
   await app.register(cors, {
     origin(origin, callback) {
       const allowed =
@@ -53,7 +64,7 @@ export async function createServer(options: ServerOptions = {}) {
   const reminders = new ReminderService(store);
   registerProductivityApi(app, store, reminders);
   const reminderTimer =
-    options.startMail === false
+    options.startMail === false || options.demoMode
       ? null
       : setInterval(() => {
           if (!mail.status().syncing) void reminders.tick();
@@ -75,6 +86,6 @@ export async function createServer(options: ServerOptions = {}) {
     mail.stop();
     store.close();
   });
-  if (options.startMail !== false) mail.start();
+  if (options.startMail !== false && !options.demoMode) mail.start();
   return { app, store, candidateService, mail, reminders };
 }

@@ -20,7 +20,8 @@
     "check": "npm run format:check && npm run typecheck && npm test && npm run extension:check && npm run repo:check",
     "smoke": "node scripts/smoke-test.mjs",
     "validate": "npm run check && npm run build && npm run smoke",
-    "package:source": "node scripts/package-source.mjs"
+    "package:source": "node scripts/package-source.mjs",
+    "demo": "npm run build && node scripts/demo.mjs"
   },
   "dependencies": {
     "@fastify/cors": "^10.0.1",
