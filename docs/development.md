@@ -30,7 +30,7 @@ CI 不登录招聘网站，不访问真实邮箱，不触发系统通知。真�
 
 ## 持续集成
 
-`.github/workflows/ci.yml` 在推送、Pull Request 和手动触发时运行。矩阵为 Ubuntu／macOS 与 Node.js 22／24；使用锁文件安装、只读仓库权限和固定提交版本的官方 Actions。
+`.github/workflows/ci.yml` 在推送、Pull Request 和手动触发时运行。矩阵为 Ubuntu 24.04／macOS 15 Intel 与 Node.js 22／24；使用锁文件安装、只读仓库权限和固定提交版本的官方 Actions。
 
 上传前的本机验证结果与 GitHub 实际运行结果分别记录；只有推送后才会产生远程 CI 结果。工作流结构参考 [GitHub Node.js 构建测试文档](https://docs.github.com/en/actions/tutorials/build-and-test-code/nodejs)。
 

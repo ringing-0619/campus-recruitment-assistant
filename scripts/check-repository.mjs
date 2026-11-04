@@ -34,7 +34,13 @@ try {
 for (const path of files) {
   if ((await stat(join(root, path))).size > 1_000_000)
     problems.push(`文件超过1 MB，需确认是否为生成物：${path}`);
-  const text = await readFile(join(root, path), 'utf8');
+  const bytes = await readFile(join(root, path));
+  if (/^docs\/images\/.+\.jpg$/.test(path)) {
+    if (bytes[0] !== 0xff || bytes[1] !== 0xd8 || bytes[2] !== 0xff)
+      problems.push(`演示截图不是有效的 JPEG：${path}`);
+    continue;
+  }
+  const text = bytes.toString('utf8');
   for (const [label, pattern] of patterns)
     if (pattern.test(text)) problems.push(`${label}：${path}`);
   // 保留识别器需要的编号形态，同时要求测试值使用显式虚构前缀，防止再次复制真实申请编号。
