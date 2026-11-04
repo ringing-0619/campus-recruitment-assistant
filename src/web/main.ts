@@ -1,4 +1,4 @@
-import { isDay, localInZone, zonedToIso } from '../shared/time';
+import { daysBetween, dayInZone, isDay, localInZone, zonedToIso } from '../shared/time';
 import './productivity.css';
 import {
   initProductivity,
@@ -673,7 +673,8 @@ function formatDate(value: string) {
   }).format(new Date(dateOnly ? `${value}T12:00:00Z` : value));
 }
 function relative(value: string) {
-  const days = Math.ceil((new Date(value).getTime() - Date.now()) / 864e5);
+  const timezone = productivityTimezone();
+  const days = daysBetween(dayInZone(new Date(), timezone), dayInZone(value, timezone));
   return days < 0
     ? `已逾期 ${-days} 天`
     : days === 0
