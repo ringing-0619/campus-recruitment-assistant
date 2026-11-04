@@ -39,7 +39,9 @@ const controlPage = `<!doctype html><html lang="en"><meta charset="utf-8"><meta 
 for(const button of document.querySelectorAll('[data-scenario]'))button.addEventListener('click',async()=>{
  button.disabled=true;const output=document.querySelector('#result');output.textContent='Processing synthetic notification…';
  try{const response=await fetch('/demo/scenarios/'+button.dataset.scenario,{method:'POST',headers:{'content-type':'application/json'},body:'{}'});const result=await response.json();if(!response.ok)throw new Error(result.error);
- output.textContent=result.explanation+'  状态：'+(result.job?.status||'—')+'；目标申请事件：'+(result.job?.events.length||0)+'；待办：'+(result.job?.tasks.length||0)+'。请刷新看板，或打开“待确认”。';}
+ output.textContent=result.scenario==='ambiguous'
+  ? result.explanation+'  状态：待确认；尚未写入申请。核对原因：'+result.candidate.reviewReason+'。请打开看板的“待确认”。'
+  : result.explanation+'  状态：'+(result.job?.status||'—')+'；目标申请事件：'+(result.job?.events.length||0)+'；待办：'+(result.job?.tasks.length||0)+'。请刷新看板。';}
  catch(error){output.textContent=error.message;}finally{button.disabled=false;}
 });
 </script></main></html>`;
