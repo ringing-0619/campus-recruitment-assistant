@@ -1,9 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { mkdtemp, writeFile, readFile, rm } from 'node:fs/promises';
-import { execFileSync } from 'node:child_process';
+import { execFile } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { promisify } from 'node:util';
 import { createDemoServer } from '../src/server/demo.js';
 import { seedDemoData, DEMO_TARGET_ID, DEMO_AMBIGUOUS_ID } from '../src/server/demo-data.js';
 import { calculateAnalytics } from '../src/server/analytics.js';
@@ -23,6 +24,7 @@ vi.mock('../src/server/keychain.js', () => ({
 }));
 
 const now = new Date('2026-11-04T18:00:00Z');
+const childTimeoutMs = 10_000;
 let fixture: string;
 let demo: Awaited<ReturnType<typeof createDemoServer>>;
 
@@ -44,41 +46,45 @@ afterEach(async () => {
 });
 
 describe('isolated synthetic demonstration', () => {
-  it('ignores inherited production database and migration paths in a fresh process', async () => {
-    const production = join(fixture, 'production-sentinel.sqlite');
-    const migration = join(fixture, 'private-migration-sentinel.json');
-    await writeFile(production, 'untouched production sentinel');
-    await writeFile(migration, 'not a migration file');
-    const output = execFileSync(
-      process.execPath,
-      [
-        '--import',
-        'tsx',
-        '--input-type=module',
-        '-e',
-        `const { createDemoServer } = await import('./src/server/demo.ts');
+  it(
+    'ignores inherited production database and migration paths in a fresh process',
+    async () => {
+      const production = join(fixture, 'production-sentinel.sqlite');
+      const migration = join(fixture, 'private-migration-sentinel.json');
+      await writeFile(production, 'untouched production sentinel');
+      await writeFile(migration, 'not a migration file');
+      const { stdout } = await promisify(execFile)(
+        process.execPath,
+        [
+          '--import',
+          'tsx',
+          '--input-type=module',
+          '-e',
+          `const { createDemoServer } = await import('./src/server/demo.ts');
        const demo = await createDemoServer({ webRoot: ${JSON.stringify(fixture)} });
        console.log(JSON.stringify({ count: demo.store.listJobs('cn').length, directory: demo.directory }));
        await demo.close();`,
-      ],
-      {
-        cwd: process.cwd(),
-        encoding: 'utf8',
-        timeout: 10_000,
-        env: {
-          ...process.env,
-          NODE_ENV: 'test',
-          CAMPUS_DB_PATH: production,
-          CAMPUS_LEGACY_DATA_PATH: migration,
+        ],
+        {
+          cwd: process.cwd(),
+          encoding: 'utf8',
+          timeout: childTimeoutMs,
+          env: {
+            ...process.env,
+            NODE_ENV: 'test',
+            CAMPUS_DB_PATH: production,
+            CAMPUS_LEGACY_DATA_PATH: migration,
+          },
         },
-      },
-    );
-    const result = JSON.parse(output.trim());
-    expect(result.count).toBe(20);
-    expect(existsSync(result.directory)).toBe(false);
-    expect(await readFile(production, 'utf8')).toBe('untouched production sentinel');
-    expect(await readFile(migration, 'utf8')).toBe('not a migration file');
-  });
+      );
+      const result = JSON.parse(stdout.trim());
+      expect(result.count).toBe(20);
+      expect(existsSync(result.directory)).toBe(false);
+      expect(await readFile(production, 'utf8')).toBe('untouched production sentinel');
+      expect(await readFile(migration, 'utf8')).toBe('not a migration file');
+    },
+    childTimeoutMs + 5_000,
+  );
   it('seeds twenty applications per market, goals and no configured mailbox', () => {
     expect(demo.store.listJobs('cn')).toHaveLength(20);
     expect(demo.store.listJobs('us')).toHaveLength(20);
